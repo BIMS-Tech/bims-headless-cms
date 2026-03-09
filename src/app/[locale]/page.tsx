@@ -342,7 +342,7 @@ export default function HomePage() {
 
         <div className="rounded-2xl p-10 md:p-14 relative" style={{ backgroundColor: '#ffffff' }}>
           {/* Large quote mark */}
-          <div className="text-8xl font-serif leading-none mb-4" style={{ color: '#e5e7eb' }}>"</div>
+          <div className="text-8xl font-serif leading-none mb-4" style={{ color: '#e5e7eb' }}>&ldquo;</div>
 
           <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-2xl mx-auto text-center" style={{ color: '#374151' }}>
             {t.quote}
