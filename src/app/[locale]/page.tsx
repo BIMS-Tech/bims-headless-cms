@@ -60,17 +60,16 @@ export default function HomePage() {
         style={{
           width: '100vw',
           marginLeft: 'calc(50% - 50vw)',
+          minHeight: '90vh',
           background: 'linear-gradient(160deg, #e8f3fb 0%, #cfe4f4 45%, #b8d4ed 100%)',
         }}
       >
-        {/* Lottie wave texture overlay */}
-        <div className="absolute inset-0 pointer-events-none">
-          <LottieHero />
-        </div>
+        {/* Lottie — oversized and centered so wave fills edge-to-edge */}
+        <LottieHero />
 
         <div className="relative z-10 flex flex-col">
           {/* Hero text + CTA — pt-28 clears the fixed header (~91px) */}
-          <div className="px-8 pt-28 pb-10 text-center flex flex-col items-center gap-10 max-w-7xl mx-auto w-full">
+          <div className="px-8 pt-36 pb-16 text-center flex flex-col items-center gap-10 max-w-7xl mx-auto w-full">
             <h1 className="font-montserrat text-5xl lg:text-6xl font-bold text-[#055094] max-w-3xl leading-tight">
               Solutions Shaped Around Your Goals
             </h1>
@@ -96,7 +95,7 @@ export default function HomePage() {
           </div>
 
           {/* Stats inside the wave */}
-          <div className="py-14 flex flex-wrap items-center justify-center gap-16 lg:gap-32">
+          <div className="py-20 flex flex-wrap items-center justify-center gap-16 lg:gap-32">
             <div className="flex flex-col items-center gap-1">
               <p className="font-montserrat text-5xl font-bold text-[#055094]">50+</p>
               <p className="font-inter text-base text-[#1a1a1a] leading-[22px]">Projects Delivered</p>
@@ -130,9 +129,8 @@ export default function HomePage() {
 
       {/* ── What We Do ── */}
       <section className="relative py-20 overflow-hidden">
-        {/* Decorative blobs */}
-        <div className="absolute rounded-full bg-[rgba(0,173,238,0.10)] w-[485px] h-[485px] -left-48 top-0 pointer-events-none" />
-        <div className="absolute rounded-full bg-[rgba(0,173,238,0.10)] w-[485px] h-[485px] right-0 top-40 pointer-events-none" />
+        <div className="absolute rounded-full bg-[rgba(0,173,238,0.06)] w-[600px] h-[600px] -left-64 top-0 blur-3xl pointer-events-none" />
+        <div className="absolute rounded-full bg-[rgba(0,173,238,0.06)] w-[600px] h-[600px] -right-64 top-20 blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col gap-12">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -186,7 +184,7 @@ export default function HomePage() {
           </div>
 
           {/* giyapay */}
-          <div className="flex flex-col lg:flex-row items-center gap-16 rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm p-0">
+          <div className="flex flex-col lg:flex-row items-center gap-16 rounded-2xl overflow-hidden bg-white p-0">
             <div className="w-full lg:w-1/2">
               <Image
                 src="/home/Frame1000006632.png"
@@ -276,7 +274,7 @@ export default function HomePage() {
           </div>
 
           {/* wrike */}
-          <div className="flex flex-col lg:flex-row items-center gap-16 rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm p-0">
+          <div className="flex flex-col lg:flex-row items-center gap-16 rounded-2xl overflow-hidden bg-white p-0">
             <div className="w-full lg:w-1/2">
               <Image
                 src="/home/Frame19.png"
@@ -371,9 +369,12 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute rounded-full bg-[rgba(0,173,238,0.10)] w-[485px] h-[485px] right-0 top-0 pointer-events-none" />
-        <div className="absolute rounded-full bg-[rgba(0,173,238,0.10)] w-[485px] h-[485px] -left-48 bottom-0 pointer-events-none" />
+      <section
+        className="relative py-20 overflow-hidden bg-[#EEF7FC] rounded-[48px]"
+        style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
+      >
+        <div className="absolute rounded-full bg-[rgba(0,173,238,0.06)] w-[600px] h-[600px] -right-64 top-0 blur-3xl pointer-events-none" />
+        <div className="absolute rounded-full bg-[rgba(0,173,238,0.06)] w-[600px] h-[600px] -left-64 bottom-0 blur-3xl pointer-events-none" />
 
         <div className="relative max-w-2xl mx-auto px-6 lg:px-8 flex flex-col items-center gap-16">
           <div className="flex flex-col items-center gap-2 text-center">

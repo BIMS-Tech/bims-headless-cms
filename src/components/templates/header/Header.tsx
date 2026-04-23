@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from '@src/components/shared/container';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const servicesDropdown = [
   {
@@ -34,12 +34,23 @@ const servicesDropdown = [
 
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const openServices = () => {
+    clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+
+  const closeServices = () => {
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 200);
+  };
 
   return (
     <header
@@ -65,8 +76,12 @@ export const Header = () => {
             Home
           </Link>
 
-          {/* Services with dropdown — uses CSS group-hover */}
-          <div className="relative group">
+          {/* Services with dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={openServices}
+            onMouseLeave={closeServices}
+          >
             <button
               type="button"
               className="flex items-center gap-1 font-inter text-base font-medium text-black whitespace-nowrap cursor-pointer hover:text-[#055094] transition-colors"
@@ -78,7 +93,7 @@ export const Header = () => {
                 viewBox="0 0 12 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="transition-transform duration-200 group-hover:rotate-180"
+                className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
               >
                 <path
                   d="M1.55554 4.22223L5.99999 8.66667L10.4444 4.22223"
@@ -90,12 +105,14 @@ export const Header = () => {
               </svg>
             </button>
 
-            {/* Dropdown panel — rendered outside pill overflow context */}
+            {/* Transparent bridge — fills the gap between button and dropdown so mouseLeave doesn't fire mid-crossing */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 h-8 w-[860px]" />
+
+            {/* Dropdown panel — offset accounts for remaining pill height + 8px visual gap */}
             <div
-              className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+16px)] z-[100]
-                         pointer-events-none opacity-0 translate-y-1
-                         group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0
-                         transition-all duration-200"
+              className={`absolute left-1/2 -translate-x-1/2 top-[calc(100%+28px)] z-[100]
+                         transition-all duration-200
+                         ${servicesOpen ? 'pointer-events-auto opacity-100 translate-y-0' : 'pointer-events-none opacity-0 translate-y-1'}`}
             >
               {/* White card */}
               <div
