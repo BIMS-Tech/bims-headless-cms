@@ -14,8 +14,8 @@ const colors = Object.entries(tokens).reduce((acc, [key, value]) => {
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    colors,
     extend: {
+      colors,
       maxWidth: {
         '8xl': '90rem',
       },
@@ -32,6 +32,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-urbanist)', ...fontFamily.sans],
+        inter: ['var(--font-inter)', ...fontFamily.sans],
+        montserrat: ['var(--font-montserrat)', ...fontFamily.sans],
       },
     },
   },

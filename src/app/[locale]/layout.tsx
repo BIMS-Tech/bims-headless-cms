@@ -1,6 +1,7 @@
+import '@src/app/globals.css';
 import { dir } from 'i18next';
 import type { Metadata, Viewport } from 'next';
-import { Urbanist } from 'next/font/google';
+import { Inter, Montserrat, Urbanist } from 'next/font/google';
 import { draftMode } from 'next/headers';
 
 import { ContentfulPreviewProvider } from '@src/components/features/contentful';
@@ -28,6 +29,8 @@ export async function generateStaticParams(): Promise<LayoutProps['params'][]> {
 }
 
 const urbanist = Urbanist({ subsets: ['latin'], variable: '--font-urbanist' });
+const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-inter' });
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-montserrat' });
 
 const allowedOriginList = ['https://app.contentful.com', 'https://app.eu.contentful.com'];
 
@@ -42,7 +45,7 @@ export default async function PageLayout({ children, params }: LayoutProps) {
   const { resources } = await initTranslations({ locale });
 
   return (
-    <html lang={locale} dir={dir(locale)}>
+    <html lang={locale} dir={dir(locale)} className={`${inter.variable} ${montserrat.variable}`}>
       <head>
         <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5" />
       </head>
