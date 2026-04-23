@@ -26,8 +26,7 @@ export default function Home_final_ui_with_dropdown() {
               </p>
             </div>
             <p className="text-[#000] font-inter text-base leading-[22px] w-full">
-              Don't just take our word for it—hear from businesses we've helped
-              transform.
+              {"Don't just take our word for it—hear from businesses we've helped transform."}
             </p>
           </div>
           <div className="flex justify-center items-center gap-24 w-full">
@@ -104,9 +103,7 @@ export default function Home_final_ui_with_dropdown() {
               </div>
               <div className="flex flex-col items-center gap-8 w-full">
                 <p className="text-[#000] font-inter text-base leading-[22px] w-full text-center">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s
+                  {"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"}
                 </p>
                 <div className="w-[168px] h-[140px] relative">
                   <div className="w-[81px] h-[81px] absolute left-[41px] top-0">
@@ -3031,7 +3028,7 @@ export default function Home_final_ui_with_dropdown() {
                 Ready to Get Started?
               </p>
               <p className="text-[#FFF] font-inter text-base leading-[22px] w-full text-center">
-                Let's discuss how we can turn your business challenges into
+                {"Let's"} discuss how we can turn your business challenges into
                 opportunities. Our team is ready to help you build solutions
                 that drive real results.
               </p>
