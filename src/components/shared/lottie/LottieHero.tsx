@@ -23,15 +23,6 @@ export const LottieHero = () => {
 
   return (
     <>
-      <style>{`
-        .lottie-hero-wrap,
-        .lottie-hero-wrap > div,
-        .lottie-hero-wrap canvas {
-          width: 100% !important;
-          height: 100% !important;
-          display: block !important;
-        }
-      `}</style>
       <div
         ref={containerRef}
         className="pointer-events-none"

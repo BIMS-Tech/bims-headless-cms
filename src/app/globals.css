@@ -33,3 +33,28 @@
   }
 }
 
+
+.lottie-hero-wrap,
+.lottie-hero-wrap > div,
+.lottie-hero-wrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.cta-lottie-wrap,
+.cta-lottie-wrap > div {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  position: relative !important;
+}
+
+.cta-lottie-wrap canvas {
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}

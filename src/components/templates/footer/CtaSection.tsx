@@ -1,43 +1,79 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const DotLottieReact = dynamic(
+  () => import('@lottiefiles/dotlottie-react').then(m => m.DotLottieReact),
+  { ssr: false }
+);
 
 export const CtaSection = () => {
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+
+    let canvasObserver: MutationObserver | null = null;
+
+    const forceCanvasSize = () => {
+      const canvas = wrap.querySelector('canvas');
+      if (!canvas) return;
+      const { width, height } = wrap.getBoundingClientRect();
+      if (!width || !height) return;
+      canvas.style.setProperty('width', `${width}px`, 'important');
+      canvas.style.setProperty('height', `${height}px`, 'important');
+      canvas.style.setProperty('position', 'absolute', 'important');
+      canvas.style.setProperty('top', '0', 'important');
+      canvas.style.setProperty('left', '0', 'important');
+
+      // Watch the canvas itself so we re-force if DotLottie overrides after insertion
+      if (!canvasObserver) {
+        canvasObserver = new MutationObserver(forceCanvasSize);
+        canvasObserver.observe(canvas, { attributes: true });
+      }
+    };
+
+    const observer = new MutationObserver(forceCanvasSize);
+    observer.observe(wrap, { childList: true, subtree: true });
+
+    // Retry on a schedule to catch DotLottie initialising after the first mutation
+    const timers = [100, 300, 600, 1200].map(t => setTimeout(forceCanvasSize, t));
+
+    window.addEventListener('resize', forceCanvasSize);
+
+    return () => {
+      timers.forEach(clearTimeout);
+      observer.disconnect();
+      canvasObserver?.disconnect();
+      window.removeEventListener('resize', forceCanvasSize);
+    };
+  }, []);
+
   return (
-    <div className="bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="bg-white pt-12">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10" style={{ marginBottom: '-80px' }}>
         <div
           className="relative rounded-2xl px-10 py-20 text-center text-white overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #0b2545 0%, #0e3460 35%, #0f5a50 70%, #137a60 100%)',
           }}
         >
-          {/* Animated diagonal stripes overlay */}
+          {/* Lottie background — canvas forced to fill via MutationObserver */}
           <div
-            className="pointer-events-none absolute inset-0 rounded-2xl"
-            style={{
-              backgroundImage: `repeating-linear-gradient(
-                -55deg,
-                transparent 0px,
-                transparent 28px,
-                rgba(255,255,255,0.04) 28px,
-                rgba(255,255,255,0.04) 56px,
-                transparent 56px,
-                transparent 84px,
-                rgba(255,255,255,0.025) 84px,
-                rgba(255,255,255,0.025) 112px
-              )`,
-              backgroundSize: '160px 160px',
-              animation: 'diagonalStripes 8s linear infinite',
-            }}
-          />
-
-          <style>{`
-            @keyframes diagonalStripes {
-              0% { background-position: 0 0; }
-              100% { background-position: 160px 160px; }
-            }
-          `}</style>
+            ref={wrapRef}
+            className="cta-lottie-wrap pointer-events-none absolute inset-0 overflow-hidden"
+            style={{ opacity: 0.4 }}
+          >
+            <DotLottieReact
+              src="/footer-cta.lottie"
+              loop
+              autoplay
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
 
           {/* Content */}
           <div className="relative z-10">
