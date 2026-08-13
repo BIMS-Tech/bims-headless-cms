@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { DotLottieReact, type DotLottie } from '@lottiefiles/dotlottie-react';
 
 export const LottieHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dotLottieRef = useRef<DotLottie | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +20,27 @@ export const LottieHero = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // dotlottie-web debounces its own resize by 100ms, so during a drag-resize the
+  // canvas backing store lags its CSS box and the browser stretches a stale bitmap.
+  // Drive resize() ourselves, throttled to one call per frame, to keep them in step.
+  useEffect(() => {
+    let frame = 0;
+
+    const handleResize = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        dotLottieRef.current?.resize();
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
@@ -41,6 +63,9 @@ export const LottieHero = () => {
             src="/waves blue.lottie"
             loop
             autoplay
+            dotLottieRefCallback={instance => {
+              dotLottieRef.current = instance;
+            }}
             style={{ width: '100%', height: '100%' }}
           />
         </div>
