@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -9,49 +8,10 @@ const DotLottieReact = dynamic(
   { ssr: false }
 );
 
+// Aspect ratio of the source animation (footer-cta.lottie is 4000x1000).
+const LOTTIE_ASPECT_RATIO = '4 / 1';
+
 export const CtaSection = () => {
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-
-    let canvasObserver: MutationObserver | null = null;
-
-    const forceCanvasSize = () => {
-      const canvas = wrap.querySelector('canvas');
-      if (!canvas) return;
-      const { width, height } = wrap.getBoundingClientRect();
-      if (!width || !height) return;
-      canvas.style.setProperty('width', `${width}px`, 'important');
-      canvas.style.setProperty('height', `${height}px`, 'important');
-      canvas.style.setProperty('position', 'absolute', 'important');
-      canvas.style.setProperty('top', '0', 'important');
-      canvas.style.setProperty('left', '0', 'important');
-
-      // Watch the canvas itself so we re-force if DotLottie overrides after insertion
-      if (!canvasObserver) {
-        canvasObserver = new MutationObserver(forceCanvasSize);
-        canvasObserver.observe(canvas, { attributes: true });
-      }
-    };
-
-    const observer = new MutationObserver(forceCanvasSize);
-    observer.observe(wrap, { childList: true, subtree: true });
-
-    // Retry on a schedule to catch DotLottie initialising after the first mutation
-    const timers = [100, 300, 600, 1200].map(t => setTimeout(forceCanvasSize, t));
-
-    window.addEventListener('resize', forceCanvasSize);
-
-    return () => {
-      timers.forEach(clearTimeout);
-      observer.disconnect();
-      canvasObserver?.disconnect();
-      window.removeEventListener('resize', forceCanvasSize);
-    };
-  }, []);
-
   return (
     <div className="bg-white pt-12">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10" style={{ marginBottom: '-80px' }}>
@@ -61,18 +21,24 @@ export const CtaSection = () => {
             background: 'linear-gradient(135deg, #0b2545 0%, #0e3460 35%, #0f5a50 70%, #137a60 100%)',
           }}
         >
-          {/* Lottie background — canvas forced to fill via MutationObserver */}
+          {/* Lottie background. The wrap is the clipping box; the inner element takes a
+              definite height from it and derives its width from the source aspect ratio,
+              so the animation covers the card without being distorted. */}
           <div
-            ref={wrapRef}
             className="cta-lottie-wrap pointer-events-none absolute inset-0 overflow-hidden"
             style={{ opacity: 0.4 }}
           >
-            <DotLottieReact
-              src="/footer-cta.lottie"
-              loop
-              autoplay
-              style={{ width: '100%', height: '100%' }}
-            />
+            <div
+              className="absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2"
+              style={{ aspectRatio: LOTTIE_ASPECT_RATIO, minWidth: '100%' }}
+            >
+              <DotLottieReact
+                src="/footer-cta.lottie"
+                loop
+                autoplay
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
           </div>
 
           {/* Content */}

@@ -42,19 +42,12 @@
   display: block !important;
 }
 
-.cta-lottie-wrap,
-.cta-lottie-wrap > div {
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  position: relative !important;
-}
-
+/* The wrap gets its box from Tailwind (`absolute inset-0`) and the inner cover box
+   sets a definite, ratio-correct size — see CtaSection.tsx. Do NOT reintroduce
+   position/height overrides on `.cta-lottie-wrap` or on its child div: the previous
+   `position: relative !important` overrode the element's own `absolute inset-0`, so
+   `height: 100%` resolved against an auto-height parent and collapsed the box to 0px,
+   which stopped the animation rendering entirely. */
 .cta-lottie-wrap canvas {
-  display: block !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
+  display: block;
 }
