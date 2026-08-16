@@ -133,6 +133,37 @@ imposing a single approach.
 - [components/features/language-selector/](src/components/features/language-selector/) — starter
   component, currently not mounted anywhere in the new layout.
 
+## Services
+
+[src/lib/services.ts](src/lib/services.ts) is the single source of truth for the 12 services —
+name, description, icon and group (Plan / Build / Integrate / Analyze / Manage / Train). It feeds
+three consumers, so edit it rather than any of them:
+
+- [src/app/[locale]/services/](src/app/[locale]/services/) — the grid and its filter pills
+- the Header mega-dropdown (via the derived `serviceGroups`)
+- the Contact form's "Service interest" select (via the derived `allServices`)
+
+Array order matches the Figma grid (`588:4843`). Several card descriptions are repeated
+placeholders in the design — they are copied verbatim and need real copy.
+
+## Contact page
+
+[src/app/[locale]/contact/](src/app/[locale]/contact/) — built from Figma `588:4912`. Copy lives in
+a single `content` object at the top of `page.tsx` so it can move to Contentful later; there is no
+Contentful content type for it today.
+
+**The form has no submission target.** `handleSubmit` in
+[ContactForm.tsx](src/app/[locale]/contact/ContactForm.tsx) only calls `preventDefault()` — that
+function is the single integration point. Wire it to an API route or form service when a
+destination exists.
+
+Service options come from [src/lib/services.ts](src/lib/services.ts), shared with the Header
+mega-dropdown so the two lists cannot drift.
+
+Known content discrepancies carried over from the design, both need a real answer from the
+business: the address reads "123 Innovation Drive, San Francisco" while the map image shows
+**Cebu**, and the office hours say EST.
+
 ## Lottie
 
 Player is `@lottiefiles/dotlottie-react` (ThorVG/WASM, **canvas only — there is no SVG renderer
@@ -159,8 +190,23 @@ recreate.
   holding the instance via `dotLottieRefCallback` and calling `resize()` from an rAF-throttled
   handler, bypassing the debounce.
 
+- **The hero Lottie showed a white block on phones.** `waves blue.lottie` is 1080×500 **with an
+  opaque background baked in**, so two things must hold at once: the box must keep the 1080:500
+  ratio (a portrait box gets letterboxed, showing the animation's background as a band), and it
+  must *cover* the hero (any uncovered area is a hard edge against the section gradient). Sizing it
+  as a % of hero height satisfied neither on a 390px screen. `LottieHero` now computes cover
+  dimensions in JS — `max(heroWidth * 1.6, heroHeight * 1080/500)` — which preserves the desktop
+  look and covers phones.
+
 **Do not "fix" Lottie sizing with `MutationObserver`, `!important` overrides, or a second debounce.**
 Size the container, and drive the player through its own API.
+
+## Header
+
+Desktop keeps the pill nav + Services mega-dropdown. Below `lg` both are hidden and a hamburger
+toggles `#mobile-nav`, a max-height/opacity drawer holding the five top-level links. "Services" is a
+`Link` to `/services` (it was a `button` that only opened the dropdown and navigated nowhere); the
+dropdown still opens on hover and on focus.
 
 ### ⚠️ Never implement Figma's Lottie export
 

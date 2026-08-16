@@ -5,42 +5,35 @@ import Link from 'next/link';
 import { Container } from '@src/components/shared/container';
 import React, { useEffect, useRef, useState } from 'react';
 
-const servicesDropdown = [
-  {
-    heading: 'Plan',
-    items: ['Digitalization Consulting Services', 'Digital Transformation Strategies'],
-  },
-  {
-    heading: 'Build',
-    items: ['Website Development and Design', 'Custom Software Development', 'Mobile App Development'],
-  },
-  {
-    heading: 'Integrate',
-    items: ['E-commerce Solutions', 'Integration Solutions'],
-  },
-  {
-    heading: 'Analyze',
-    items: ['Data Analytics and Business Intelligence'],
-  },
-  {
-    heading: 'Manage',
-    items: ['Managed Digital Workspace Services', 'Project Management', 'Product Management'],
-  },
-  {
-    heading: 'Train',
-    items: ['Training and Support Services'],
-  },
+import { serviceGroups as servicesDropdown } from '@src/lib/services';
+
+const mobileLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Contact Us', href: '/contact' },
 ];
 
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Don't leave the drawer open behind a resize into the desktop layout.
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setMobileOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const openServices = () => {
@@ -64,14 +57,11 @@ export const Header = () => {
           <Image src="/logo1.png" alt="BIMS Logo" width={110} height={38} priority />
         </Link>
 
-        {/* ── Rounded pill nav ── */}
-        <div
-          className="flex items-center gap-11 rounded-[20px] border border-[#F5F7FA] bg-white px-8 h-[59px]"
-          style={{ boxShadow: '0 0 15px 0 rgba(5,80,148,0.05)' }}
-        >
+        {/* ── Rounded pill nav — desktop only; below lg the drawer below takes over ── */}
+        <div className="hidden lg:flex items-center gap-11 rounded-[20px] border border-background bg-white px-8 h-[59px] shadow-control">
           <Link
             href="/"
-            className="font-inter text-base font-semibold text-[#055094] whitespace-nowrap hover:opacity-80 transition-opacity"
+            className="font-inter text-base font-semibold text-primary whitespace-nowrap hover:opacity-80 transition-opacity"
           >
             Home
           </Link>
@@ -82,9 +72,13 @@ export const Header = () => {
             onMouseEnter={openServices}
             onMouseLeave={closeServices}
           >
-            <button
-              type="button"
-              className="flex items-center gap-1 font-inter text-base font-medium text-black whitespace-nowrap cursor-pointer hover:text-[#055094] transition-colors"
+            {/* A Link, not a button: clicking "Services" navigates to the Services page.
+                The dropdown still opens on hover, and on focus so keyboard users can reach it. */}
+            <Link
+              href="/services"
+              aria-expanded={servicesOpen}
+              onFocus={openServices}
+              className="flex items-center gap-1 font-inter text-base font-medium text-black whitespace-nowrap cursor-pointer hover:text-primary transition-colors"
             >
               Services
               <svg
@@ -103,7 +97,7 @@ export const Header = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </Link>
 
             {/* Transparent bridge — fills the gap between button and dropdown so mouseLeave doesn't fire mid-crossing */}
             <div className="absolute top-full left-1/2 -translate-x-1/2 h-8 w-[860px]" />
@@ -123,13 +117,13 @@ export const Header = () => {
                 <div className="flex flex-col gap-8 w-52">
                   {servicesDropdown.slice(0, 2).map(({ heading, items }) => (
                     <div key={heading} className="flex flex-col gap-3">
-                      <p className="font-inter text-lg font-semibold text-[#051625]">{heading}</p>
+                      <p className="font-inter text-lg font-semibold text-text">{heading}</p>
                       <div className="flex flex-col gap-1.5">
                         {items.map((item) => (
                           <Link
                             key={item}
                             href="/services"
-                            className="font-inter text-sm text-[#055094] hover:underline"
+                            className="font-inter text-sm text-primary hover:underline"
                           >
                             {item}
                           </Link>
@@ -143,13 +137,13 @@ export const Header = () => {
                 <div className="flex flex-col gap-8 w-56">
                   {servicesDropdown.slice(2, 4).map(({ heading, items }) => (
                     <div key={heading} className="flex flex-col gap-3">
-                      <p className="font-inter text-lg font-semibold text-[#051625]">{heading}</p>
+                      <p className="font-inter text-lg font-semibold text-text">{heading}</p>
                       <div className="flex flex-col gap-1.5">
                         {items.map((item) => (
                           <Link
                             key={item}
                             href="/services"
-                            className="font-inter text-sm text-[#055094] hover:underline"
+                            className="font-inter text-sm text-primary hover:underline"
                           >
                             {item}
                           </Link>
@@ -163,13 +157,13 @@ export const Header = () => {
                 <div className="flex flex-col gap-8 w-52">
                   {servicesDropdown.slice(4, 6).map(({ heading, items }) => (
                     <div key={heading} className="flex flex-col gap-3">
-                      <p className="font-inter text-lg font-semibold text-[#051625]">{heading}</p>
+                      <p className="font-inter text-lg font-semibold text-text">{heading}</p>
                       <div className="flex flex-col gap-1.5">
                         {items.map((item) => (
                           <Link
                             key={item}
                             href="/services"
-                            className="font-inter text-sm text-[#055094] hover:underline"
+                            className="font-inter text-sm text-primary hover:underline"
                           >
                             {item}
                           </Link>
@@ -184,26 +178,75 @@ export const Header = () => {
 
           <Link
             href="/blog"
-            className="font-inter text-base font-medium text-black whitespace-nowrap hover:text-[#055094] transition-colors"
+            className="font-inter text-base font-medium text-black whitespace-nowrap hover:text-primary transition-colors"
           >
             Blog
           </Link>
           <Link
             href="/about-us"
-            className="font-inter text-base font-medium text-black whitespace-nowrap hover:text-[#055094] transition-colors"
+            className="font-inter text-base font-medium text-black whitespace-nowrap hover:text-primary transition-colors"
           >
             About Us
           </Link>
         </div>
 
-        {/* Contact Us */}
+        {/* Contact Us — desktop only */}
         <Link
           href="/contact"
-          className="shrink-0 bg-black text-white px-8 py-3 rounded-full font-inter text-base font-medium hover:bg-gray-900 transition-colors"
+          className="hidden lg:block shrink-0 bg-black text-white px-8 py-3 rounded-full font-inter text-base font-medium hover:bg-gray-900 transition-colors"
         >
           Contact Us
         </Link>
+
+        {/* Hamburger — below lg only */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen(open => !open)}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          className="lg:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-control"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+            {mobileOpen ? (
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            ) : (
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            )}
+          </svg>
+        </button>
       </Container>
+
+      {/* ── Mobile drawer ── */}
+      <div
+        id="mobile-nav"
+        className={`lg:hidden overflow-hidden bg-white transition-[max-height,opacity] duration-300 ${
+          mobileOpen ? 'max-h-[420px] opacity-100 shadow-md' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <Container className="flex flex-col py-2">
+          {mobileLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileOpen(false)}
+              className="border-b border-background py-4 font-inter text-base font-medium text-black last:border-b-0 hover:text-primary transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </Container>
+      </div>
     </header>
   );
 };

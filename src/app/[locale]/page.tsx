@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="relative z-10 flex flex-col">
           {/* Hero text + CTA — pt-28 clears the fixed header (~91px) */}
           <div className="px-8 pt-36 pb-16 text-center flex flex-col items-center gap-10 max-w-7xl mx-auto w-full">
-            <h1 className="font-montserrat text-5xl lg:text-6xl font-bold text-[#055094] max-w-3xl leading-tight">
+            <h1 className="font-montserrat text-5xl lg:text-6xl font-bold text-primary max-w-3xl leading-tight">
               Solutions Shaped Around Your Goals
             </h1>
             <p className="font-inter text-base text-[#1a1a1a] max-w-2xl leading-[25px]">
@@ -80,13 +80,13 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="flex items-center gap-1.5 bg-[#055094] text-white px-6 py-2.5 rounded-full font-inter text-base leading-[22px] hover:bg-[#044882] transition-colors"
+                className="flex items-center gap-1.5 bg-primary text-white px-6 py-2.5 rounded-full font-inter text-base leading-[22px] hover:bg-primary-dark transition-colors"
               >
                 Schedule a Free Consultation
               </Link>
               <Link
                 href="/services"
-                className="flex items-center gap-1.5 bg-white/70 border border-[#055094] text-[#055094] px-6 py-2.5 rounded-full font-inter text-base font-medium hover:bg-white transition-colors"
+                className="flex items-center gap-1.5 bg-white/70 border border-primary text-primary px-6 py-2.5 rounded-full font-inter text-base font-medium hover:bg-white transition-colors"
               >
                 View Our Services
                 <ArrowRight color="#055094" />
@@ -97,7 +97,7 @@ export default function HomePage() {
           {/* Stats inside the wave */}
           <div className="py-20 flex flex-wrap items-center justify-center gap-16 lg:gap-32">
             <div className="flex flex-col items-center gap-1">
-              <p className="font-montserrat text-5xl font-bold text-[#055094]">50+</p>
+              <p className="font-montserrat text-5xl font-bold text-primary">50+</p>
               <p className="font-inter text-base text-[#1a1a1a] leading-[22px]">Projects Delivered</p>
             </div>
             <div className="flex flex-col items-center gap-1">
@@ -143,7 +143,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/about"
-              className="flex items-center gap-1.5 bg-[#055094] text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-[0_0_15px_0_rgba(5,80,148,0.05)] hover:bg-[#044882] transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-control hover:bg-primary-dark transition-colors whitespace-nowrap"
             >
               Read More
               <ArrowRight />
@@ -157,8 +157,8 @@ export default function HomePage() {
               { img: '/home/PositiveDynamic.png', title: 'Built for Your Growth', desc: 'Your software scales with you—flexible, future-proof, and always under your control.' },
               { img: '/home/Link.png', title: 'Works with Your Existing Systems', desc: 'We integrate smoothly with your tools, keeping your operations running without disruption.' },
             ].map(({ img, title, desc }) => (
-              <div key={title} className="flex flex-col items-center gap-10 p-6 rounded-xl bg-white shadow-[0_0_20px_0_rgba(5,80,148,0.10)]">
-                <div className="flex items-center justify-center rounded-md bg-[#055094] shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[58px] h-[53px] shrink-0">
+              <div key={title} className="flex flex-col items-center gap-10 p-6 rounded-xl bg-white shadow-card">
+                <div className="flex items-center justify-center rounded-md bg-primary shadow-control w-[58px] h-[53px] shrink-0">
                   <Image src={img} alt={title} width={32} height={32} className="object-contain" />
                 </div>
                 <div className="flex flex-col gap-6 w-full">
@@ -196,7 +196,7 @@ export default function HomePage() {
             </div>
             <div className="flex flex-col gap-8 w-full lg:w-1/2 px-8 py-8 lg:py-0 lg:pr-10">
               <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center rounded-md bg-white shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[69px] h-[69px] border border-gray-100">
+                <div className="flex items-center justify-center rounded-md bg-white shadow-control w-[69px] h-[69px] border border-gray-100">
                   <Image src="/home/Rectangle.png" alt="giyapay icon" width={38} height={38} className="rounded object-contain" />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -219,7 +219,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href="/giyapay"
-                  className="inline-flex items-center gap-1.5 bg-[#055094] text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-[0_0_15px_0_rgba(5,80,148,0.05)] hover:bg-[#044882] transition-colors w-fit"
+                  className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-control hover:bg-primary-dark transition-colors w-fit"
                 >
                   Explore Giyapay
                   <ArrowRight />
@@ -229,7 +229,7 @@ export default function HomePage() {
           </div>
 
           {/* zenpos.co */}
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-16 rounded-2xl bg-[#EEF7FC] px-8 py-12 lg:p-0 lg:overflow-hidden">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-16 rounded-2xl bg-light-blue px-8 py-12 lg:p-0 lg:overflow-hidden">
             <div className="w-full lg:w-1/2">
               <Image
                 src="/home/Frame1000006555.png"
@@ -241,7 +241,7 @@ export default function HomePage() {
             </div>
             <div className="flex flex-col gap-8 w-full lg:w-1/2 lg:px-10 lg:py-12">
               <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center rounded-md bg-white shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[69px] h-[69px]">
+                <div className="flex items-center justify-center rounded-md bg-white shadow-control w-[69px] h-[69px]">
                   <Image src="/home/Logo_clean2.png" alt="zenpos icon" width={64} height={36} className="object-contain" />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -264,7 +264,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href="/zenpos"
-                  className="inline-flex items-center gap-1.5 bg-[#055094] text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-[0_0_15px_0_rgba(5,80,148,0.05)] hover:bg-[#044882] transition-colors w-fit"
+                  className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-control hover:bg-primary-dark transition-colors w-fit"
                 >
                   Explore Senpos + Giyapay
                   <ArrowRight />
@@ -286,7 +286,7 @@ export default function HomePage() {
             </div>
             <div className="flex flex-col gap-8 w-full lg:w-1/2 px-8 py-8 lg:py-0 lg:pr-10">
               <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center rounded-md bg-white shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[69px] h-[69px] border border-gray-100">
+                <div className="flex items-center justify-center rounded-md bg-white shadow-control w-[69px] h-[69px] border border-gray-100">
                   <Image src="/home/Images11.png" alt="wrike icon" width={37} height={37} className="object-contain" />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -309,7 +309,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href="/wrike"
-                  className="inline-flex items-center gap-1.5 bg-[#055094] text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-[0_0_15px_0_rgba(5,80,148,0.05)] hover:bg-[#044882] transition-colors w-fit"
+                  className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-control hover:bg-primary-dark transition-colors w-fit"
                 >
                   Explore Wrike
                   <ArrowRight />
@@ -344,8 +344,8 @@ export default function HomePage() {
               { img: '/home/LaptopCoding.png', title: 'Custom Software Development', desc: 'We build tailored solutions that match your unique business workflows.' },
               { img: '/home/ShoppingBag.png', title: 'E-commerce Solutions', desc: 'We build tailored solutions that match your unique business workflows.' },
             ].map(({ img, title, desc }) => (
-              <div key={title} className="flex flex-col items-center gap-6 py-12 px-8 rounded-xl bg-white shadow-[0_0_20px_0_rgba(5,80,148,0.10)]">
-                <div className="flex items-center justify-center rounded-full bg-[#055094] shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[65px] h-[65px]">
+              <div key={title} className="flex flex-col items-center gap-6 py-12 px-8 rounded-xl bg-white shadow-card">
+                <div className="flex items-center justify-center rounded-full bg-primary shadow-control w-[65px] h-[65px]">
                   <Image src={img} alt={title} width={40} height={40} className="object-contain" />
                 </div>
                 <div className="flex flex-col gap-6 w-full">
@@ -359,7 +359,7 @@ export default function HomePage() {
           <div className="flex justify-center">
             <Link
               href="/services"
-              className="flex items-center gap-1.5 border-[1.5px] border-[#055094] text-[#055094] px-5 py-2.5 rounded-full font-inter text-base font-medium hover:bg-[#055094]/5 transition-colors"
+              className="flex items-center gap-1.5 border-[1.5px] border-primary text-primary px-5 py-2.5 rounded-full font-inter text-base font-medium hover:bg-primary/5 transition-colors"
             >
               View All Services
               <ArrowRight color="#055094" />
@@ -370,7 +370,7 @@ export default function HomePage() {
 
       {/* ── Testimonials ── */}
       <section
-        className="relative py-20 overflow-hidden bg-[#EEF7FC] rounded-[48px]"
+        className="relative py-20 overflow-hidden bg-light-blue rounded-[48px]"
         style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
       >
         <div className="absolute rounded-full bg-[rgba(0,173,238,0.06)] w-[600px] h-[600px] -right-64 top-0 blur-3xl pointer-events-none" />
@@ -388,7 +388,7 @@ export default function HomePage() {
           <div className="flex items-center gap-12 w-full">
             {/* Prev arrow */}
             <button
-              className="flex items-center justify-center rounded-md bg-white shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[69px] h-[69px] shrink-0"
+              className="flex items-center justify-center rounded-md bg-white shadow-control w-[69px] h-[69px] shrink-0"
               aria-label="Previous testimonial"
             >
               <svg width="26" height="19" viewBox="0 0 26 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -426,7 +426,7 @@ export default function HomePage() {
 
             {/* Next arrow */}
             <button
-              className="flex items-center justify-center rounded-md bg-white shadow-[0_0_15px_0_rgba(5,80,148,0.05)] w-[69px] h-[69px] shrink-0"
+              className="flex items-center justify-center rounded-md bg-white shadow-control w-[69px] h-[69px] shrink-0"
               aria-label="Next testimonial"
             >
               <svg width="26" height="19" viewBox="0 0 26 19" fill="none" xmlns="http://www.w3.org/2000/svg">
