@@ -31,16 +31,30 @@ const content = {
     name: 'BIMS Headquarters',
     tagline: 'Visit us in person or connect virtually',
     cta: 'Schedule a Free Consultation',
+    mapTitle: 'Map showing BIMS Technologies at KMC Skyrise 4, Cebu IT Park',
+    /**
+     * Live OpenStreetMap embed, centred on Skyrise 4, Cebu I.T. Park (10.33011, 123.90627).
+     *
+     * Google's keyless `?output=embed` URL cannot be used: it 301s to /maps/embed and the
+     * redirect itself carries `X-Frame-Options: SAMEORIGIN`, so the browser blocks the frame
+     * before following it. The supported Google alternative is the Maps Embed API, which
+     * needs a billable key — swap `mapEmbedSrc` for
+     * `https://www.google.com/maps/embed/v1/place?key=<KEY>&q=...` if one is provisioned.
+     */
+    mapEmbedSrc:
+      'https://www.openstreetmap.org/export/embed.html?bbox=123.9028%2C10.3279%2C123.9098%2C10.3323&layer=mapnik&marker=10.3301097%2C123.9062722',
+    /** Shared BIMS Technologies listing, for the "Open in Maps" link out. */
+    mapLink: 'https://maps.app.goo.gl/ioBPvxNMUJghC6k78',
     details: [
       {
         Icon: IconHouse,
         title: 'Office Address',
-        lines: ['123 Innovation Drive, Suite 400', 'San Francisco, CA 94105', 'United States'],
+        lines: ['KMC Skyrise 4, Cebu IT Park', 'V. Padriga St, Cebu City 6000', 'Philippines'],
       },
       {
         Icon: IconClock,
         title: 'Office Hours',
-        lines: ['Monday – Friday: 9:00 AM – 6:00 PM EST', 'Saturday – Sunday: Closed'],
+        lines: ['Monday – Friday: 9:00 AM – 6:00 PM PHT', 'Saturday – Sunday: Closed'],
       },
       {
         Icon: IconUsers,
@@ -112,15 +126,27 @@ export default function ContactPage() {
         </div>
 
         <div className="mt-10 flex flex-col gap-6 lg:mt-16 lg:flex-row lg:items-stretch">
-          {/* Map */}
+          {/* Map — live Google embed. The keyless `output=embed` endpoint needs no API key;
+              it 302s to /maps/embed, which sends no X-Frame-Options and so is frameable.
+              Our own CSP only sets `frame-ancestors`, which governs who may embed US. */}
           <div className="relative aspect-[753/500] w-full overflow-hidden rounded-[20px] sm:aspect-[753/460] lg:aspect-auto lg:h-[639px] lg:w-[61%]">
-            <Image
-              src="/contact/office-map.png"
-              alt="Map showing the BIMS Technologies office location"
-              fill
-              sizes="(min-width: 1024px) 61vw, 100vw"
-              className="object-cover object-left"
+            <iframe
+              title={content.office.mapTitle}
+              src={content.office.mapEmbedSrc}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              className="absolute inset-0 h-full w-full border-0"
             />
+            <a
+              href={content.office.mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute left-4 top-4 flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 font-inter text-sm font-medium text-primary shadow-control transition-colors hover:bg-light-blue"
+            >
+              Open in Maps
+              <IconChevronRight className="h-[13px] w-[9px]" />
+            </a>
           </div>
 
           {/* Details panel. `[&_p]:text-white` is required, not stylistic: globals.css sets
