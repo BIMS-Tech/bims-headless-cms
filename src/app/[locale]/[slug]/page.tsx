@@ -98,8 +98,9 @@ export default async function Page({ params: { locale, slug } }: BlogPageProps) 
   const categories = ['Tech Skills', 'Fintech', 'Technology', 'Professional Services', 'Business'];
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
+    <div className="bg-background" style={{ minHeight: '100vh' }}>
+      {/* pt clears the fixed 91px header — without it the back link sits behind the logo */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-10">
 
         {/* Back link */}
         <Link
@@ -125,8 +126,7 @@ export default async function Page({ params: { locale, slug } }: BlogPageProps) 
 
         {/* Title */}
         <h1
-          className="text-4xl md:text-5xl font-bold leading-tight mb-6 max-w-4xl"
-          style={{ color: '#111827' }}
+          className="font-montserrat text-[32px] md:text-5xl font-bold leading-[1.15] mb-6 max-w-4xl text-black"
         >
           {blogPost.title}
         </h1>

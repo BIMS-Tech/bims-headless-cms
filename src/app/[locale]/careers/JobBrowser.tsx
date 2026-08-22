@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 import { jobLocations, jobs, type Job } from '@src/lib/careers';
@@ -102,14 +103,33 @@ const JobCard = ({ job }: { job: Job }) => (
         <p className="font-inter text-sm font-semibold text-text">{job.rate}</p>
         <p className="font-inter text-base leading-[22px] text-black">{job.location}</p>
       </div>
-      <button
-        type="button"
+      <Link
+        href={`/careers/${job.slug}`}
         className="flex h-10 shrink-0 items-center justify-center rounded-full bg-primary px-5 font-inter text-base leading-[22px] text-white shadow-control transition-colors hover:bg-primary-dark"
       >
-        Apply
-      </button>
+        View role
+      </Link>
     </div>
   </article>
+);
+
+/** Shown when nothing is posted at all — distinct from "your filters matched nothing". */
+const NoOpenings = () => (
+  <div className="mt-10 flex flex-col items-center gap-4 rounded-xl bg-white px-6 py-16 text-center shadow-card lg:mt-12">
+    <h3 className="font-montserrat text-xl font-semibold text-text lg:text-2xl">
+      No open positions right now
+    </h3>
+    <p className="max-w-[480px] font-inter text-base leading-[25px] text-black">
+      We are not hiring for any roles at the moment. Do check back — and if you think you would
+      be a good fit for the team, we are always glad to hear from you.
+    </p>
+    <Link
+      href="/contact"
+      className="mt-2 flex h-10 items-center justify-center rounded-full bg-primary px-5 font-inter text-base leading-[22px] text-white shadow-control transition-colors hover:bg-primary-dark"
+    >
+      Get in touch
+    </Link>
+  </div>
 );
 
 export const JobBrowser = () => {
@@ -128,6 +148,9 @@ export const JobBrowser = () => {
       return true;
     });
   }, [department, location, query]);
+
+  // With nothing posted, the filter row would be a control with nothing to control.
+  if (jobs.length === 0) return <NoOpenings />;
 
   return (
     <>

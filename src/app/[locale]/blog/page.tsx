@@ -31,15 +31,15 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
   const posts = blogPostsData.pageBlogPostCollection?.items ?? [];
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+    <div className="bg-background" style={{ minHeight: '100vh' }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-        {/* ── Hero ── */}
-        <section className="pt-16 pb-12 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-5" style={{ color: '#111827' }}>
+        {/* ── Hero ── pt clears the fixed 91px header, as on every other page ── */}
+        <section className="pt-32 sm:pt-36 lg:pt-40 pb-12 text-center">
+          <h1 className="font-montserrat text-[32px] sm:text-5xl md:text-6xl font-bold leading-[1.15] mb-5 text-black">
             Insights for Business<br /> &amp; Technology Leaders
           </h1>
-          <p className="text-base md:text-lg max-w-xl mx-auto mb-10" style={{ color: '#6b7280' }}>
+          <p className="font-inter text-base leading-[25px] max-w-xl mx-auto mb-10 text-black">
             Practical articles on digital transformation, software, data, and business growth.
           </p>
 

@@ -218,7 +218,9 @@ export default function HomePage() {
                   ))}
                 </div>
                 <Link
-                  href="/giyapay"
+                  href="https://giyapay.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-control hover:bg-primary-dark transition-colors w-fit"
                 >
                   Explore Giyapay
@@ -263,7 +265,9 @@ export default function HomePage() {
                   ))}
                 </div>
                 <Link
-                  href="/zenpos"
+                  href="https://www.giyapay.com/pos"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full font-inter text-base leading-[22px] shadow-control hover:bg-primary-dark transition-colors w-fit"
                 >
                   Explore Senpos + Giyapay

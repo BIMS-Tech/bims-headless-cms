@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { serviceGroupOrder, services, type ServiceGroup } from '@src/lib/services';
@@ -44,9 +45,10 @@ export const ServicesGrid = () => {
 
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map(service => (
-          <div
-            key={service.name}
-            className="flex flex-col items-center gap-6 rounded-xl bg-white px-8 py-12 text-center shadow-card lg:min-h-[290px]"
+          <Link
+            key={service.slug}
+            href={`/services/${service.slug}`}
+            className="group flex flex-col items-center gap-6 rounded-xl bg-white px-8 py-12 text-center shadow-card outline-none transition-transform duration-200 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-primary lg:min-h-[290px]"
           >
             <div className="flex h-[65px] w-[65px] shrink-0 items-center justify-center rounded-full bg-primary shadow-control">
               <Image
@@ -59,10 +61,12 @@ export const ServicesGrid = () => {
               />
             </div>
             <div className="flex flex-col gap-6">
-              <p className="font-montserrat text-xl font-semibold text-text">{service.name}</p>
+              <p className="font-montserrat text-xl font-semibold text-text group-hover:text-primary">
+                {service.name}
+              </p>
               <p className="font-inter text-base leading-[22px] text-text">{service.description}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>

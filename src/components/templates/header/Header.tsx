@@ -121,11 +121,11 @@ export const Header = () => {
                       <div className="flex flex-col gap-1.5">
                         {items.map((item) => (
                           <Link
-                            key={item}
-                            href="/services"
+                            key={item.slug}
+                            href={`/services/${item.slug}`}
                             className="font-inter text-sm text-primary hover:underline"
                           >
-                            {item}
+                            {item.name}
                           </Link>
                         ))}
                       </div>
@@ -141,11 +141,11 @@ export const Header = () => {
                       <div className="flex flex-col gap-1.5">
                         {items.map((item) => (
                           <Link
-                            key={item}
-                            href="/services"
+                            key={item.slug}
+                            href={`/services/${item.slug}`}
                             className="font-inter text-sm text-primary hover:underline"
                           >
-                            {item}
+                            {item.name}
                           </Link>
                         ))}
                       </div>
@@ -161,11 +161,11 @@ export const Header = () => {
                       <div className="flex flex-col gap-1.5">
                         {items.map((item) => (
                           <Link
-                            key={item}
-                            href="/services"
+                            key={item.slug}
+                            href={`/services/${item.slug}`}
                             className="font-inter text-sm text-primary hover:underline"
                           >
-                            {item}
+                            {item.name}
                           </Link>
                         ))}
                       </div>

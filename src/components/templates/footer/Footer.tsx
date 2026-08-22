@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Container } from '@src/components/shared/container/Container';
 import { CtaSection } from './CtaSection';
 
+import { services, type Service } from '@src/lib/services';
+
 const FacebookIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -22,6 +24,16 @@ const LinkedInIcon = () => (
   </svg>
 );
 
+/** The six services the Figma footer lists, in order. */
+const footerServiceSlugs = [
+  'website-development-and-design',
+  'digitalization-consulting-services',
+  'digital-transformation-strategies',
+  'training-and-support-services',
+  'integration-solutions',
+  'product-management',
+];
+
 const navColumns = [
   {
     title: 'Company',
@@ -36,22 +48,20 @@ const navColumns = [
   {
     title: 'Product',
     links: [
-      { label: 'Giyapay', href: '/giyapay' },
+      { label: 'Giyapay', href: 'https://giyapay.com/', external: true },
       { label: 'Wrike', href: '/wrike' },
-      { label: 'Zenpos', href: '/zenpos' },
-      { label: 'Maretinda', href: '/maretinda' },
+      { label: 'Zenpos', href: 'https://www.giyapay.com/pos', external: true },
+      { label: 'Maretinda', href: 'https://maretinda.com/ph', external: true },
     ],
   },
   {
     title: 'Services',
-    links: [
-      { label: 'Website Development and Design', href: '/services' },
-      { label: 'Digitization Consulting Services', href: '/services' },
-      { label: 'Digital Transformation Strategies', href: '/services' },
-      { label: 'Training and Support Services', href: '/services' },
-      { label: 'Integration Solutions', href: '/services' },
-      { label: 'Product Management', href: '/services' },
-    ],
+    // Derived from src/lib/services.ts rather than retyped, so the labels and the
+    // /services/<slug> targets cannot drift apart. Order matches the Figma footer.
+    links: footerServiceSlugs
+      .map(slug => services.find(service => service.slug === slug))
+      .filter((service): service is Service => Boolean(service))
+      .map(service => ({ label: service.name, href: `/services/${service.slug}` })),
   },
 ];
 
@@ -129,13 +139,25 @@ export const Footer = () => {
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm transition-opacity hover:opacity-70"
-                        style={{ color: 'rgba(255,255,255,0.8)' }}
-                      >
-                        {link.label}
-                      </Link>
+                      {'external' in link && link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm transition-opacity hover:opacity-70"
+                          style={{ color: 'rgba(255,255,255,0.8)' }}
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-sm transition-opacity hover:opacity-70"
+                          style={{ color: 'rgba(255,255,255,0.8)' }}
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

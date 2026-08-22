@@ -16,14 +16,22 @@ export const serviceGroupOrder = [
 
 export type ServiceGroup = (typeof serviceGroupOrder)[number];
 
-export interface Service {
+export interface ServiceInput {
   name: string;
   description: string;
   icon: string;
   group: ServiceGroup;
+  /** Longer intro shown on the detail page. Pending copy from the legacy site. */
+  overview?: string;
+  /** Bullet points shown as "What's included". Pending copy from the legacy site. */
+  highlights?: string[];
 }
 
-export const services: Service[] = [
+export interface Service extends ServiceInput {
+  slug: string;
+}
+
+const catalogue: ServiceInput[] = [
   {
     name: 'Digital Transformation Strategies',
     description: 'We assist businesses in navigating their digital transformation journey.',
@@ -101,10 +109,32 @@ export const services: Service[] = [
   },
 ];
 
-/** Shape consumed by the Header mega-dropdown. */
+const toSlug = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+export const services: Service[] = catalogue.map(service => ({
+  ...service,
+  slug: toSlug(service.name),
+}));
+
+export const findService = (slug: string): Service | undefined =>
+  services.find(service => service.slug === slug);
+
+/** Services in the same group, excluding the one being viewed. */
+export const relatedServices = (service: Service): Service[] =>
+  services.filter(other => other.group === service.group && other.slug !== service.slug);
+
+/**
+ * Shape consumed by the Header mega-dropdown. Items are full Service objects so the
+ * dropdown can deep-link to each `/services/<slug>` page.
+ */
 export const serviceGroups = serviceGroupOrder.map(heading => ({
   heading,
-  items: services.filter(service => service.group === heading).map(service => service.name),
+  items: services.filter(service => service.group === heading),
 }));
 
 /** Flat list of names, used by the Contact form select. */
