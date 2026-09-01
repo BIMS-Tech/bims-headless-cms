@@ -47,6 +47,7 @@ export default async function PageLayout({ children, params }: LayoutProps) {
   return (
     <html lang={locale} dir={dir(locale)} className={`${inter.variable} ${montserrat.variable}`}>
       <head>
+        <meta name="facebook-domain-verification" content="djcqmzpdijfatyxqk2lzvi0og86wos" />
         <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#055094" />
       </head>
 
