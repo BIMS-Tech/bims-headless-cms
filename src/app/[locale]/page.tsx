@@ -51,6 +51,9 @@ const featureList = [
   'Enterprise-grade security and compliance',
 ];
 
+// Hidden until real client testimonials replace the placeholder copy.
+const SHOW_TESTIMONIALS = false;
+
 export default function HomePage() {
   return (
     <>
@@ -373,6 +376,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ── */}
+      {SHOW_TESTIMONIALS && (
       <section
         className="relative py-20 overflow-hidden bg-light-blue rounded-[48px]"
         style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
@@ -441,6 +445,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      )}
     </div>
     </>
   );
