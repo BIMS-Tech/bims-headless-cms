@@ -165,6 +165,39 @@ export const Footer = () => {
             ))}
           </div>
 
+          {/* BIR Registration Seal — BIR requires online businesses to display this badge
+              prominently and keep its QR scannable, so it stays large and on a white card. */}
+          <div
+            className="py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+            style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}
+          >
+            <div className="max-w-md">
+              <h4 className="text-base font-bold mb-2" style={{ color: '#ffffff' }}>
+                BIR Registered Business
+              </h4>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                BIMS Technologies, Inc. is registered with the Bureau of Internal Revenue of the
+                Philippines. Scan the QR code to verify our registration.
+              </p>
+              <p className="mt-3 text-sm font-semibold" style={{ color: '#ffffff' }}>
+                RSN 081RC20230000006303
+              </p>
+            </div>
+
+            <div
+              className="self-start md:self-auto rounded-lg p-2"
+              style={{ backgroundColor: '#ffffff' }}
+            >
+              <Image
+                src="/certificates/bir-registration-seal.png"
+                alt="BIR Registration Seal Badge — Registered 2020, RSN 081RC20230000006303"
+                width={360}
+                height={112}
+                className="w-full max-w-[360px] h-auto"
+              />
+            </div>
+          </div>
+
           {/* Bottom Bar */}
           <div
             className="py-5 flex flex-col md:flex-row md:justify-between items-center gap-3 text-sm"
